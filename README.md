@@ -15,7 +15,7 @@ Installation
 Get Support and Make Contributions
 -----------
 - Fork a copy and make contributinos: https://github.com/JamieChung/VanillaTwitterEmbed
-- Get support on twitter: http://www.twitter.com/jamiechung
+- Follow me on twitter: http://twitter.com/jamiechung
 
 ChangeLog
 -----------
