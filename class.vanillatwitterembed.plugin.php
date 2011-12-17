@@ -10,9 +10,9 @@
 
 
 $PluginInfo['VanillaTwitterEmbed'] = array (
-	'Name'				=>	'Twitter Embed',
+	'Name'				=>	'Vanilla Twitter Embed',
 	'Description'			=>	'Embed tweets directly into discussion posts by pasting the tweet URL.',
-	'Version'				=>	'0.1',
+	'Version'				=>	'0.1.1',
 	'RequiredApplications'	=>	array('Vanilla' => '2.0.18'),
 	'RequiredPlugins'		=>	FALSE,
 	'HasLocale'			=>	FALSE,
