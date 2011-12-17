@@ -10,11 +10,11 @@ Installation
 -----------
 1. Simply drop the VanillaTwitterEmbed directory into your vanilla forum's plugin directory and enable in dashboard.
 
-2. Navigate to built in administration interface which can be found under Settings -> Vanilla Twitter Embed.
+2. Enable plugin: Settings -> Vanilla Twitter Embed.
 
 Get Support and Make Contributions
 -----------
-- Fork a copy and make contributinos: https://github.com/JamieChung/VanillaTwitterEmbed
+- Fork a copy and make contributions: https://github.com/JamieChung/VanillaTwitterEmbed
 - Follow me on twitter: http://twitter.com/jamiechung
 
 ChangeLog
