@@ -26,7 +26,7 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 	protected function CreateEmbed ( $matches )
 	{
 		$id = $matches[3];
-		$api = 'http://api.twitter.com/1/statuses/oembed.json?id='.$id;
+		$api = 'http://api.twitter.com/1/statuses/oembed.json?id='.$id.'&omit_script=false';
 		$response = file_get_contents($api);
 		if ( !$response )
 		{
@@ -46,13 +46,14 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 		return $content;
 	}
 	
-	    /**
-     * DiscussionController_BeforeCommentBody_Handler
-     * @param DiscussionController $Sender
-     */
-    public function DiscussionController_BeforeCommentBody_Handler(&$Sender) {
-        $Sender->EventArguments['Comment']->Body = $this->TwitterEmbed($Sender->EventArguments['Comment']->Body);
-    }
+	/**
+	* DiscussionController_BeforeCommentBody_Handler
+	* @param DiscussionController $Sender
+	*/
+	public function DiscussionController_BeforeCommentBody_Handler ( &$Sender )
+	{
+		$Sender->EventArguments['Comment']->Body = $this->TwitterEmbed($Sender->EventArguments['Comment']->Body);
+	}
 	
 	public function Enabled ()
 	{
@@ -66,10 +67,18 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 			if ( C('Plugins.TwitterEmbed.Enabled') )
 			{
 				RemoveFromConfig('Plugins.TwitterEmbed.Enabled');
+				
+				$Sender->SQL("DROP TABLE IF EXISTS `gdn_tweetembed`");
 			}
 			else
 			{
 				SaveToConfig('Plugins.TwitterEmbed.Enabled', TRUE);
+				$Sender->SQL("CREATE TABLE IF NOT EXISTS `gdn_tweetembed` (
+							  `ID` int(11) NOT NULL AUTO_INCREMENT,
+							  `TweetID` int(11) NOT NULL,
+							  `CacheResponse` text NOT NULL,
+							  PRIMARY KEY (`ID`)
+							)");
 			}
 		}
 		
