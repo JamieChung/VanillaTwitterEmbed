@@ -12,7 +12,7 @@
 $PluginInfo['VanillaTwitterEmbed'] = array (
 	'Name'				=>	'Vanilla Twitter Embed',
 	'Description'			=>	'Embed tweets directly into discussion posts by pasting the tweet URL.',
-	'Version'				=>	'0.1.1',
+	'Version'				=>	'0.2',
 	'RequiredApplications'	=>	array('Vanilla' => '2.0.18'),
 	'RequiredPlugins'		=>	FALSE,
 	'HasLocale'			=>	FALSE,
@@ -38,6 +38,14 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 							  PRIMARY KEY (`ID`),
 							  KEY `TweetID` (`TweetID`)
 							)");
+	}
+	
+	/**
+	* Destructs the database when we disable. Simple act of clearing the cache.
+	*/
+	public function OnDisable ()
+	{
+		Gdn::Database()->Query("DROP TABLE IF EXISTS `GDN_TwitterEmbed`");	
 	}
 	
 	/**
@@ -69,7 +77,11 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 		// If we don't have the tweet, let's get it from the twitter server.
 		if ( !$tweet )
 		{
-			$api = 'http://api.twitter.com/1/statuses/oembed.json?id='.$id.'&omit_script=true';
+			// Create the twitter embed code based on the Garden Locale
+			$locale = explode('-', C('Garden.Locale'));
+			$lang = substr($locale[0], 0, 2);
+			
+			$api = 'http://api.twitter.com/1/statuses/oembed.json?id='.$id.'&omit_script=true&lang='.$lang;
 			$response = file_get_contents($api);
 			
 			// If we can't get the proper response from the server
