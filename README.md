@@ -1,7 +1,7 @@
 Vanilla Twitter Embed
 =======================================
 
-Features: (Latest Version 0.2 - Dec.18.2011)
+Features: (Latest Version 0.3 - Dec.27.2011)
 -----------
 - Embed tweets directly into discussion posts by pasting the tweet URL.
 - Tweets are cached in database for faster performance.
@@ -20,6 +20,8 @@ Get Support and Make Contributions
 
 ChangeLog
 -----------
+### 0.3 (Dec.27.2011)
+- Fixed bug where youtube, mentions and anchors were no longer parsing properly (thanks to @Kiwii on vf.org)
 ### 0.2 (Dec.18.2011)
 - Twitter embed widget adapts to native local of Vanilla installation.
 - When plugin is disabled, cache table is dropped from database.

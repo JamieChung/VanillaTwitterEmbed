@@ -12,7 +12,7 @@
 $PluginInfo['VanillaTwitterEmbed'] = array (
 	'Name'				=>	'Vanilla Twitter Embed',
 	'Description'			=>	'Embed tweets directly into discussion posts by pasting the tweet URL.',
-	'Version'				=>	'0.2',
+	'Version'				=>	'0.3',
 	'RequiredApplications'	=>	array('Vanilla' => '2.0.18'),
 	'RequiredPlugins'		=>	FALSE,
 	'HasLocale'			=>	FALSE,
@@ -24,7 +24,7 @@ $PluginInfo['VanillaTwitterEmbed'] = array (
 class VanillaTwitterEmbedPlugin implements Gdn_IPlugin 
 {
 	// Regex for replace callback. Identifies a url to a individual tweet.
-	private $twitterStatusRegex = '/(http|https)\:\/\/twitter.com\/(.*?)\/status\/([0-9]+)/';
+	private $twitterStatusRegex = '/<a href="(http|https)\:\/\/twitter.com\/(.*?)\/status\/([0-9]+)" target="_blank" rel="nofollow">(http|https)\:\/\/twitter.com\/(.*?)\/status\/([0-9]+)<\/a>/';
 	
 	/**
 	* Setup the database structure required to cache the used tweets.
@@ -82,6 +82,7 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 			$lang = substr($locale[0], 0, 2);
 			
 			$api = 'http://api.twitter.com/1/statuses/oembed.json?id='.$id.'&omit_script=true&lang='.$lang;
+			
 			$response = file_get_contents($api);
 			
 			// If we can't get the proper response from the server
@@ -125,7 +126,7 @@ class VanillaTwitterEmbedPlugin implements Gdn_IPlugin
 	{
 		$Object = $Sender->EventArguments['Object'];
 		
-		$Object->FormatBody = $this->TwitterEmbed($Object->Body);
+		$Object->FormatBody = $this->TwitterEmbed($Object->FormatBody);
 		$Sender->EventArguments['Object'] = $Object;
 	}
 	
