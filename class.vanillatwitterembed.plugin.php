@@ -8,7 +8,6 @@
 * @github https://github.com/JamieChung/VanillaTwitterEmbed
 */
 
-
 $PluginInfo['VanillaTwitterEmbed'] = array (
 	'Name' =>	'Vanilla Twitter Embed',
 	'Description' => 'Embed tweets directly into discussion posts by pasting the tweet URL.',
